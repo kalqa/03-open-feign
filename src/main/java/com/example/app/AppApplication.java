@@ -1,5 +1,6 @@
 package com.example.app;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,8 +21,13 @@ public class AppApplication {
 
     @EventListener(ApplicationStartedEvent.class)
     public void makeRequestToShawnMendesEndpoint(){
-        String response = shawnMendesClient.makeSearchRequest("shawnmendes", 5);
-        System.out.println(response);
+        ShawnMendesResponse response = shawnMendesClient.makeSearchRequest("shawnmendes", 5);
+//        System.out.println(response);
+        List<ShawnMendesResult> results = response.results();
+        results.forEach(
+                shawnMendesResult ->
+                        System.out.println(shawnMendesResult.trackName())
+        );
     }
 
 }
