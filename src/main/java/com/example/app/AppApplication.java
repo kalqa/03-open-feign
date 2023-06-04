@@ -3,6 +3,7 @@ package com.example.app;
 import feign.FeignException;
 import feign.RetryableException;
 import java.util.List;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 @EnableFeignClients
+@Log4j2
 public class AppApplication {
 
     @Autowired
@@ -31,7 +33,8 @@ public class AppApplication {
                             System.out.println(shawnMendesResult.trackName())
             );
         } catch (FeignException.FeignClientException feignException) {
-            System.out.println("client exception: " + feignException.status());
+//            System.out.println("client exception: " + feignException.status());
+            log.error("client exception: " + feignException.status());
         } catch (FeignException.FeignServerException feignException) {
             System.out.println("server exception: " + feignException.status());
         } catch (RetryableException retryableException) {
